@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PassFortress | Password Strength & Digital Hygiene Auditor</title>
+  <meta name="description" content="Visual password entropy calculator, adversary brute-force speed analyzer, and social media digital hygiene checklist for students.">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%236366f1'><path d='M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z'/></svg>">
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container navbar">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+          </svg>
+        </div>
+        <span class="brand-title">PassFortress</span>
+        <span class="brand-tag">Cyber Hygiene</span>
+      </div>
+      <div class="nav-controls">
+        <button id="lang-toggle-btn" class="lang-btn">
+          🌐 Language: <strong>English</strong>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="container">
+
+    <!-- Hero Banner -->
+    <section class="hero-card" style="margin-top: 1.5rem;">
+      <h1 class="hero-title" id="hero-title">Password Entropy, Brute-Force Visualizer & Digital Hygiene Auditor</h1>
+      <p class="hero-desc" id="hero-desc">
+        Demonstrating how supercomputers and GPU clusters brute-force weak credentials, with actionable privacy audits for everyday platforms.
+      </p>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="tabs-nav">
+      <button class="tab-btn active" data-tab="tab-evaluator">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+        <span id="tab-label-eval">Strength Meter</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-brute-force">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        <span id="tab-label-brute">Brute-Force Speeds</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-passphrase">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+        <span id="tab-label-gen">Passphrase Generator</span>
+      </button>
+      <button class="tab-btn" data-tab="tab-privacy-audit">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+        <span id="tab-label-audit">Privacy Checklist</span>
+      </button>
+    </nav>
+
+    <!-- Tab 1: Live Strength & Entropy Meter -->
+    <div id="tab-evaluator" class="tab-content active">
+      <div class="glass-card">
+        <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Interactive Credential Strength Analyzer</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Type any sample password below to examine its entropy, character pool, and resiliency against automated password dictionaries.
+        </p>
+
+        <div class="password-box-wrapper">
+          <input type="password" id="main-password-input" class="password-input" value="Tiger-River-99!" placeholder="Enter a password to evaluate...">
+          <button id="toggle-pass-visibility" class="toggle-visibility-btn" title="Toggle visibility">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
+          </button>
+        </div>
+
+        <!-- Strength bar -->
+        <div class="strength-meter-container">
+          <div class="meter-track">
+            <div id="meter-fill" class="meter-fill"></div>
+          </div>
+          <div class="strength-meta">
+            <span style="color: var(--text-muted);">Security Rating:</span>
+            <span id="strength-label" class="strength-label">-</span>
+          </div>
+        </div>
+
+        <!-- Metrics Grid -->
+        <div class="stats-grid">
+          <div class="stat-item">
+            <div class="stat-title">Information Entropy</div>
+            <div id="stat-entropy" class="stat-value">0 bits</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-title">Character Length</div>
+            <div id="stat-length" class="stat-value">0 chars</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-title">Character Pool Diversity</div>
+            <div id="stat-pool" class="stat-value">0 chars</div>
+          </div>
+        </div>
+
+        <!-- Rules Checklist -->
+        <div class="rules-list">
+          <div id="rule-len" class="rule-chip"><span class="rule-icon">○</span> At least 12 characters</div>
+          <div id="rule-upper" class="rule-chip"><span class="rule-icon">○</span> Uppercase letter (A-Z)</div>
+          <div id="rule-lower" class="rule-chip"><span class="rule-icon">○</span> Lowercase letter (a-z)</div>
+          <div id="rule-number" class="rule-chip"><span class="rule-icon">○</span> Numerical digit (0-9)</div>
+          <div id="rule-symbol" class="rule-chip"><span class="rule-icon">○</span> Special symbol (!@#$)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 2: Brute-Force Cracking Speeds -->
+    <div id="tab-brute-force" class="tab-content">
+      <div class="glass-card">
+        <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem;">Estimated Time to Crack Across Attacker Tiers</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem;">
+          Based on the password currently typed in the Strength Meter, here is how long various adversary hardware rigs would take to break it via automated brute-force:
+        </p>
+
+        <div class="threat-grid">
+          <div class="threat-card">
+            <div class="threat-header">
+              <span class="threat-icon">💻</span>
+              <div>
+                <div class="threat-name">Standard Laptop CPU</div>
+                <div class="threat-speed">100,000 guesses/sec</div>
+              </div>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Time to crack:</div>
+            <div id="time-laptop" class="crack-time" style="color: #60a5fa;">Calculating...</div>
+          </div>
+
+          <div class="threat-card">
+            <div class="threat-header">
+              <span class="threat-icon">⚡</span>
+              <div>
+                <div class="threat-name">Modern GPU Rig (RTX 4090)</div>
+                <div class="threat-speed">10 Billion guesses/sec</div>
+              </div>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Time to crack:</div>
+            <div id="time-gpu" class="crack-time" style="color: var(--accent-amber);">Calculating...</div>
+          </div>
+
+          <div class="threat-card">
+            <div class="threat-header">
+              <span class="threat-icon">🤖</span>
+              <div>
+                <div class="threat-name">Distributed Botnet Cluster</div>
+                <div class="threat-speed">100 Billion guesses/sec</div>
+              </div>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Time to crack:</div>
+            <div id="time-botnet" class="crack-time" style="color: var(--accent-rose);">Calculating...</div>
+          </div>
+
+          <div class="threat-card">
+            <div class="threat-header">
+              <span class="threat-icon">🏢</span>
+              <div>
+                <div class="threat-name">Supercomputer Array</div>
+                <div class="threat-speed">10 Trillion guesses/sec</div>
+              </div>
+            </div>
+            <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Time to crack:</div>
+            <div id="time-super" class="crack-time" style="color: var(--accent-violet);">Calculating...</div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; background: rgba(99, 102, 241, 0.1); border: 1px solid var(--accent-indigo); padding: 1.25rem; border-radius: 10px;">
+          <h4 style="color: #c7d2fe; margin-bottom: 0.35rem;">Educational Key Takeaway:</h4>
+          <p style="font-size: 0.9rem; color: #cbd5e1;">
+            Length always beats complexity! Adding just 3 additional random characters increases mathematical combinations by over <strong>800,000 times</strong>, transforming a cracked password into one that takes millennia to brute force.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 3: Smart Passphrase Generator -->
+    <div id="tab-passphrase" class="tab-content">
+      <div class="glass-card">
+        <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem;">The "3 Random Words" Passphrase Generator</h2>
+        <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem;">
+          Traditional advice forced students to remember confusing strings like <code>P@$$w0rd!</code> which are actually easy for computers to crack. A passphrase combining 3 memorable words with numbers is effortless for humans to remember but mathematically impossible for machines to guess.
+        </p>
+
+        <div class="passphrase-display" id="generated-passphrase-text">
+          Falcon-River-Mango-88!
+        </div>
+
+        <div class="generator-controls">
+          <button id="btn-generate-passphrase" class="btn btn-primary">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+            Generate New Passphrase
+          </button>
+          <button id="btn-copy-passphrase" class="btn btn-secondary">
+            <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"/></svg>
+            Copy to Clipboard
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tab 4: Social Media & Privacy Audit -->
+    <div id="tab-privacy-audit" class="tab-content">
+      
+      <!-- Scorecard Banner -->
+      <div class="scorecard-banner">
+        <div>
+          <span style="font-size: 0.85rem; text-transform: uppercase; color: #a5b4fc; font-weight: 700;">Personal Cyber Hygiene Score</span>
+          <div id="audit-score-pct" class="scorecard-metric">0%</div>
+          <div id="audit-score-ratio" style="color: var(--text-muted); font-size: 0.95rem;">0 of 10 safeguards active</div>
+          <p id="audit-advice" style="margin-top: 0.5rem; font-size: 0.9rem; font-weight: 600;"></p>
+        </div>
+      </div>
+
+      <div class="glass-card">
+        
+        <!-- WhatsApp Section -->
+        <div class="audit-category">
+          <div class="audit-cat-title">
+            <span>💬</span> WhatsApp Security Setup
+          </div>
+          <div class="audit-list">
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Enable Two-Step Verification PIN</strong>
+                <span>Settings > Account > Two-Step Verification. Prevents anyone from registering your phone number on another device.</span>
+              </div>
+            </label>
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>End-to-End Encrypted Cloud Backups</strong>
+                <span>Settings > Chats > Chat Backup > Encrypted Backup. Protects Google Drive backups from unauthorized access.</span>
+              </div>
+            </label>
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Restrict Profile Photo & "About" to My Contacts</strong>
+                <span>Settings > Privacy > Profile Photo > My Contacts. Prevents scammers from cloning your photo for impersonation fraud.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Instagram & Social Media Section -->
+        <div class="audit-category">
+          <div class="audit-cat-title">
+            <span>📸</span> Instagram & Social Media Safeguards
+          </div>
+          <div class="audit-list">
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Turn On Two-Factor Authentication (2FA)</strong>
+                <span>Settings > Accounts Center > Password and Security > Two-Factor Authentication.</span>
+              </div>
+            </label>
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Review "Where You're Logged In" Active Sessions</strong>
+                <span>Log out of unknown devices, school computer labs, or old smartphones.</span>
+              </div>
+            </label>
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Never Click "Vote for Me in an Ambassador Contest" Links</strong>
+                <span>The #1 vector for student Instagram account takeovers via phishing.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- UPI & Mobile Safety -->
+        <div class="audit-category">
+          <div class="audit-cat-title">
+            <span>💳</span> UPI & Smartphone Security
+          </div>
+          <div class="audit-list">
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Remember the UPI Rule: PIN is ONLY to Send Money</strong>
+                <span>Receiving money or cashbacks never requires scanning QR codes or entering UPI PIN.</span>
+              </div>
+            </label>
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Disable "Install Unknown Apps" / Third-Party APKs</strong>
+                <span>Settings > Apps > Special App Access > Install Unknown Apps. Block APK downloads from WhatsApp or Telegram.</span>
+              </div>
+            </label>
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Never Share Screen on Video Calls with Strangers</strong>
+                <span>Screen sharing allows fraudsters to view banking OTPs in real-time as notifications pop up.</span>
+              </div>
+            </label>
+            <label class="audit-item">
+              <input type="checkbox" class="audit-checkbox">
+              <div class="audit-text">
+                <strong>Secure Device with Biometric / PIN Lock</strong>
+                <span>Ensure a minimum 6-digit PIN or fingerprint lock on both your device and financial apps.</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container">
+      <p>Developed for <span class="footer-highlight">Campus Outreach Team</span> • Cybersecurity Awareness Initiative 2026</p>
+      <p style="margin-top: 0.4rem; font-size: 0.8rem; color: #64748b;">
+        Target Audience: Rural Students & Local Communities • Ready for Vercel Deployment
+      </p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "name": "passfortress-cyber-outreach",
+  "builds": [
+    {
+      "src": "*",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/$1"
+    }
+  ]
+}
